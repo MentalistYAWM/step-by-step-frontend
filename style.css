@@ -1,0 +1,801 @@
+/* style.css */
+
+/* --- Змінні для теми (залишаємо, бо вони задають основні кольори) --- */
+:root {
+    --primary-color: #007bff; /* Синій */
+    --secondary-color: #6c757d; /* Сірий */
+    --accent-color: #28a745; /* Зелений */
+    --danger-color: #dc3545; /* Червоний */
+    --info-color: #17a2b8; /* Бірюзовий */
+    --warning-color: #ffc107; /* Жовтий */
+
+    --font-family: 'Poppins', sans-serif;
+    --timer-font-family: 'Roboto Mono', monospace; /* Можливо, знадобиться для інших елементів */
+
+    /* Light Theme (Адаптовані для головної сторінки) */
+    --background-start: #3a1c71; /* Глибокий фіолетовий */
+    --background-end: #d76d77;   /* Більш м'який червонуватий/рожевий */
+    --background-color: linear-gradient(135deg, var(--background-start), var(--background-end)); /* Замінюємо на градієнт */
+    --card-background: rgba(255, 255, 255, 0.1); /* Напівпрозорий білий */
+    --text-color: #ecf0f1; /* Світлий текст */
+    --heading-color: #a4e4ff; /* Світлий блакитний для заголовків */
+    --border-color: rgba(255, 255, 255, 0.2); /* Напівпрозорий бордюр */
+    --input-background: rgba(255, 255, 255, 0.08);
+    --input-border: rgba(255, 255, 255, 0.3);
+    --shadow-light: rgba(0, 0, 0, 0.3);
+    --shadow-medium: rgba(0, 0, 0, 0.5);
+    --shadow-strong: rgba(0, 0, 0, 0.7);
+    --button-text-color: #ffffff;
+
+    /* Futuristc colors for menu/progress bars */
+    --futuristic-glow: #00e0ff; /* Світіння для футуристичних елементів */
+    --futuristic-shadow: rgba(0, 224, 255, 0.5); /* Тінь для світіння */
+    --menu-bg: rgba(25, 40, 60, 0.8); /* Темний, майже прозорий фон для меню */
+    --menu-item-hover: rgba(0, 224, 255, 0.2);
+}
+
+/* Dark Theme (Також адаптовані, але з урахуванням темного фону) */
+body.dark-mode {
+    --background-start: #0f0c29; /* Дуже темний синій/фіолетовий */
+    --background-end: #302b63;   /* Темний фіолетовий */
+    --background-color: linear-gradient(135deg, var(--background-start), var(--background-end));
+    --card-background: rgba(0, 0, 0, 0.3); /* Напівпрозорий чорний */
+    --text-color: #ecf0f1;
+    --heading-color: #00e0ff;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --input-background: rgba(0, 0, 0, 0.2);
+    --input-border: rgba(255, 255, 255, 0.2);
+    --shadow-light: rgba(0, 0, 0, 0.4);
+    --shadow-medium: rgba(0, 0, 0, 0.6);
+    --shadow-strong: rgba(0, 0, 0, 0.8);
+    --button-text-color: #ffffff;
+
+    --futuristic-glow: #8aff8a; /* Зелене світіння для темної теми */
+    --futuristic-shadow: rgba(138, 255, 138, 0.5);
+    --menu-bg: rgba(10, 15, 25, 0.8);
+    --menu-item-hover: rgba(138, 255, 138, 0.2);
+}
+
+
+/* --- Загальні стилі --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--background-color); /* Використовуємо змінну для градієнта */
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden; /* Забороняємо прокрутку основної сторінки */
+    transition: background 0.5s ease, color 0.3s ease;
+}
+
+.main-page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    padding: 20px;
+    position: relative; /* Для позиціонування овального меню */
+}
+
+/* --- Main Title --- */
+.main-title-section {
+    text-align: center;
+    margin-top: 5vh; /* Відступ зверху */
+    z-index: 10;
+}
+
+.main-title-section h1 {
+    font-size: clamp(3em, 8vw, 6em); /* Адаптивний розмір шрифту */
+    color: var(--heading-color);
+    text-shadow: 0 0 15px var(--futuristic-shadow), 0 0 30px var(--futuristic-glow);
+    font-weight: 700;
+    letter-spacing: 5px;
+    animation: fadeInDown 1s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Progress Bars Section --- */
+.progress-bars-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Два стовпці для малих прогрес-барів */
+    gap: 30px;
+    margin: auto 0; /* Вирівнює по центру по вертикалі */
+    padding: 20px;
+    justify-items: center;
+    align-items: center;
+    position: relative; /* Для позиціонування центрального прогрес-бару */
+    width: 100%;
+    max-width: 900px; /* Обмеження ширини для десктопу */
+}
+
+.progress-bar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-color);
+    font-size: 1.1em;
+    font-weight: 500;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transform: scale(0.8);
+    animation: scaleIn 0.8s ease-out forwards;
+}
+
+.progress-bar-item:nth-child(1) { animation-delay: 0.5s; }
+.progress-bar-item:nth-child(2) { animation-delay: 0.7s; }
+.progress-bar-item:nth-child(3) { animation-delay: 0.9s; }
+.progress-bar-item:nth-child(4) { animation-delay: 1.1s; }
+
+
+.progress-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 50%, transparent 70%); /* Внутрішнє світіння */
+    border: 3px solid var(--futuristic-glow);
+    box-shadow: 0 0 15px var(--futuristic-shadow), inset 0 0 10px var(--futuristic-glow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--heading-color);
+    position: relative;
+    overflow: hidden; /* Щоб анімація кола була всередині */
+}
+
+/* Анімація для прогрес-барів у вигляді кола */
+.progress-circle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-color); /* Колір заповнення */
+    transform-origin: bottom;
+    transform: scaleY(0); /* Початковий стан: не заповнений */
+    transition: transform 1.5s ease-out; /* Анімація заповнення */
+    /* Цей псевдоелемент буде анімуватися JS для відображення прогресу */
+}
+
+.progress-circle.active::before {
+    transform: scaleY(var(--progress-scale, 0)); /* CSS змінна для JS */
+}
+
+.progress-circle .progress-value {
+    position: relative; /* Щоб значення було поверх анімації */
+    z-index: 2;
+}
+
+.main-weight-progress {
+    grid-column: 1 / -1; /* Займає всю ширину сітки */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 50px; /* Відступ від верхніх прогрес-барів */
+    opacity: 0;
+    transform: scale(0.8);
+    animation: scaleIn 0.8s ease-out forwards 1.3s; /* Затримка анімації */
+}
+
+.main-weight-progress .progress-circle.large {
+    width: 180px;
+    height: 180px;
+    font-size: 2.5em;
+    border: 4px solid var(--futuristic-glow);
+    box-shadow: 0 0 20px var(--futuristic-shadow), inset 0 0 15px var(--futuristic-glow);
+}
+
+
+/* --- Main Navigation Oval Menu --- */
+.main-nav-oval {
+    width: 90vw;
+    max-width: 800px;
+    background: var(--menu-bg);
+    border-radius: 80px; /* Овальна форма */
+    padding: 15px 30px;
+    position: relative; /* Для тіней та світіння */
+    bottom: 20px; /* Відступ від низу */
+    box-shadow: 0 5px 20px var(--shadow-strong), 0 0 30px var(--futuristic-shadow);
+    backdrop-filter: blur(10px); /* Ефект розмиття фону */
+    -webkit-backdrop-filter: blur(10px); /* Для підтримки Safari */
+    border: 1px solid var(--futuristic-glow);
+    z-index: 100; /* Переконатися, що меню поверх усього */
+    animation: fadeInUp 1s ease-out forwards 1.5s; /* Анімація появи */
+    opacity: 0;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.main-nav-oval ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav-oval li {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.main-nav-oval .nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 5px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9em;
+    transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+    border-radius: 50px; /* Кругліші при наведенні */
+    position: relative;
+    overflow: hidden; /* Для ефекту тіні */
+}
+
+.main-nav-oval .nav-link i {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    color: var(--futuristic-glow); /* Іконки світяться */
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.main-nav-oval .nav-link .nav-text {
+    display: block;
+    white-space: nowrap; /* Запобігає перенесенню тексту на новий рядок */
+    opacity: 1; /* Текст завжди видимий */
+    transition: opacity 0.3s ease;
+}
+
+
+.main-nav-oval .nav-link:hover {
+    background-color: var(--menu-item-hover);
+    transform: translateY(-5px); /* Ефект підняття */
+}
+
+.main-nav-oval .nav-link:hover i {
+    transform: scale(1.1);
+}
+
+.main-nav-oval .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: var(--futuristic-glow);
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease-out, height 0.4s ease-out, opacity 0.4s ease-out;
+    z-index: -1;
+}
+
+.main-nav-oval .nav-link:hover::before {
+    width: 150px; /* Розмір світіння */
+    height: 150px;
+    opacity: 0.1;
+}
+
+/* --- Запозичені стилі для кнопок, форм, модальних вікон (з dashboard.css) --- */
+/* Тут ми інтегруємо стилі, які були в dashboard.css і які ми хочемо зберегти.
+   Я виберу лише ті, що стосуються загальних компонентів UI, а не конкретного макету дашборду. */
+
+/* Buttons */
+.btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* Більш помітні тіні */
+    color: var(--button-text-color);
+}
+
+.btn i {
+    margin-right: 8px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--futuristic-glow)); /* Адаптований градієнт */
+    border: 1px solid var(--primary-color);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px var(--shadow-medium), 0 0 10px var(--futuristic-glow);
+    filter: brightness(1.1);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: var(--button-text-color);
+    border: 1px solid var(--secondary-color);
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px var(--shadow-medium);
+}
+
+.btn-save {
+    background-color: var(--accent-color);
+    color: var(--button-text-color);
+    border: 1px solid var(--accent-color);
+}
+
+.btn-save:hover {
+    background-color: #218838;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px var(--shadow-medium);
+}
+
+.btn-cancel {
+    background-color: #f0ad4e;
+    color: var(--button-text-color);
+    border: 1px solid #f0ad4e;
+}
+
+.btn-cancel:hover {
+    background-color: #ec971f;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px var(--shadow-medium);
+}
+
+.btn-delete {
+    background-color: var(--danger-color);
+    color: var(--button-text-color);
+    border: 1px solid var(--danger-color);
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px var(--shadow-medium);
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    color: var(--futuristic-glow); /* Колір іконок-кнопок */
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-icon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    background-color: var(--input-background);
+    color: var(--text-color);
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 400;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 8px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-color);
+}
+
+/* Messages */
+.message {
+    margin-top: 15px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+
+/* Modals (Pop-ups) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: var(--modal-backdrop);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal.show-modal {
+    display: flex;
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: var(--modal-background);
+    margin: auto;
+    padding: 30px;
+    border: 1px solid var(--modal-border);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px var(--shadow-strong);
+    position: relative;
+    animation: fadeInScale 0.3s ease-out;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-content h3 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    text-align: center;
+}
+
+.modal-content p {
+    margin-bottom: 15px;
+    line-height: 1.8;
+}
+
+.modal-content ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+.modal-content ul li {
+    background-color: var(--input-background);
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid var(--input-border);
+}
+
+.modal .close-button {
+    color: var(--secondary-color);
+    font-size: 30px;
+    font-weight: bold;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.modal .close-button:hover,
+.modal .close-button:focus {
+    color: var(--danger-color);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Animation for modal */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Start Workout Modal Specifics */
+.workout-timer-section {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: var(--filter-background);
+    border-radius: 10px;
+    border: 1px solid var(--filter-border);
+}
+
+.timer-display {
+    font-family: var(--timer-font-family);
+    font-size: 3em;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    background-color: var(--input-background);
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: inline-block;
+    min-width: 200px;
+}
+
+.timer-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.timer-controls .btn {
+    padding: 10px 20px;
+    font-size: 0.9em;
+}
+
+#startWorkoutExercisesContainer {
+    margin-top: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+#startWorkoutExercisesContainer .exercise-item {
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: var(--input-background);
+    border-radius: 10px;
+    border: 1px solid var(--input-border);
+}
+#startWorkoutExercisesContainer .exercise-item h4 {
+    font-size: 1.1em;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+#startWorkoutExercisesContainer .exercise-item input {
+    margin-bottom: 10px;
+}
+
+/* Daily Workouts Modal specific styles */
+#dailyWorkoutsListInModal {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.workout-item-in-modal {
+    background-color: var(--filter-background);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--filter-border);
+}
+
+.workout-item-in-modal h4 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.workout-item-in-modal ul {
+    margin-top: 10px;
+}
+
+.workout-item-in-modal ul li {
+    background-color: var(--card-background);
+}
+
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .main-page-container {
+        padding: 15px;
+        justify-content: space-between; /* Забезпечуємо розподіл контенту */
+    }
+
+    .main-title-section {
+        margin-top: 10vh; /* Збільшуємо відступ зверху на мобільних */
+    }
+
+    .progress-bars-section {
+        grid-template-columns: 1fr; /* Один стовпець на мобільних */
+        gap: 20px;
+        margin-top: auto; /* Притискає до середини, якщо мало контенту */
+        margin-bottom: auto;
+    }
+
+    .progress-bar-item {
+        margin-bottom: 10px; /* Додаємо відступ між барами */
+    }
+
+    .main-weight-progress {
+        margin-top: 30px; /* Менший відступ на мобільних */
+    }
+
+    .main-nav-oval {
+        width: 95vw;
+        border-radius: 60px; /* Менш округлий на мобільних */
+        padding: 10px 15px;
+        bottom: 10px;
+    }
+
+    .main-nav-oval .nav-link {
+        font-size: 0.8em;
+    }
+
+    .main-nav-oval .nav-link i {
+        font-size: 1.3em;
+    }
+
+    .main-nav-oval .nav-link .nav-text {
+        font-size: 0.7em; /* Дрібніший текст для мобільних */
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .modal-actions .btn {
+        flex-grow: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-title-section h1 {
+        font-size: 2.5em;
+        letter-spacing: 3px;
+    }
+
+    .progress-circle {
+        width: 100px;
+        height: 100px;
+        font-size: 1.5em;
+    }
+
+    .main-weight-progress .progress-circle.large {
+        width: 150px;
+        height: 150px;
+        font-size: 2em;
+    }
+
+    .main-nav-oval {
+        padding: 8px 10px;
+        border-radius: 50px;
+    }
+
+    .main-nav-oval .nav-link i {
+        font-size: 1.2em;
+        margin-bottom: 3px;
+    }
+
+    .main-nav-oval .nav-link .nav-text {
+        font-size: 0.65em;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        font-size: 0.85em;
+    }
+}
+
+/* Анімація для активації прогрес-барів */
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Для плавного переходу фону body між темами */
+body {
+    transition: background 0.7s ease, color 0.3s ease;
+}

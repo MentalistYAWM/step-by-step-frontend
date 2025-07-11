@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step By Step - Ваша тренувальна платформа</title>
+    <link rel="stylesheet" href="style.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-page-container">
+        <header class="main-title-section">
+            <h1>Step By Step</h1>
+        </header>
+
+        <section class="progress-bars-section">
+            <div class="progress-bar-item" data-metric="bench-press">
+                <div class="progress-circle">
+                    <div class="progress-value">-- кг</div>
+                </div>
+                <p>Жим лежачи</p>
+            </div>
+            <div class="progress-bar-item" data-metric="squat">
+                <div class="progress-circle">
+                    <div class="progress-value">-- кг</div>
+                </div>
+                <p>Присідання</p>
+            </div>
+            <div class="progress-bar-item" data-metric="bicep-curl">
+                <div class="progress-circle">
+                    <div class="progress-value">-- кг</div>
+                </div>
+                <p>Підйом на біцепс</p>
+            </div>
+            <div class="progress-bar-item" data-metric="deadlift">
+                <div class="progress-circle">
+                    <div class="progress-value">-- кг</div>
+                </div>
+                <p>Станова тяга</p>
+            </div>
+            <div class="main-weight-progress" data-metric="total-weight">
+                <div class="progress-circle large">
+                    <div class="progress-value">-- кг</div>
+                </div>
+                <p>Ваша поточна вага</p>
+            </div>
+        </section>
+
+        <nav class="main-nav-oval">
+            <ul>
+                <li data-section="dashboard"><a href="#" class="nav-link"><i class="fas fa-home"></i><span class="nav-text">Головна</span></a></li>
+                <li data-section="progress"><a href="#" class="nav-link"><i class="fas fa-chart-line"></i><span class="nav-text">Прогрес</span></a></li>
+                <li data-section="workout-templates"><a href="#" class="nav-link"><i class="fas fa-dumbbell"></i><span class="nav-text">Тренування</span></a></li>
+                <li data-section="profile"><a href="#" class="nav-link"><i class="fas fa-user"></i><span class="nav-text">Профіль</span></a></li>
+                <li><a href="#" class="nav-link logout-link"><i class="fas fa-sign-out-alt"></i><span class="nav-text">Вийти</span></a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="customAlertModal" class="modal custom-modal-alert">
+        <div class="modal-content">
+            <span class="close-button" id="customAlertClose">&times;</span>
+            <p id="customAlertMessage"></p>
+            <button class="btn" id="customAlertOkBtn">ОК</button>
+        </div>
+    </div>
+
+    <div id="customConfirmModal" class="modal custom-modal-confirm">
+        <div class="modal-content">
+            <span class="close-button" id="customConfirmClose">&times;</span>
+            <p id="customConfirmMessage"></p>
+            <div class="modal-actions">
+                <button class="btn btn-save" id="customConfirmYesBtn">Так</button>
+                <button class="btn btn-cancel" id="customConfirmNoBtn">Ні</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="selectDateModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Виберіть дату тренування</h3>
+            <div class="form-group">
+                <label for="workoutDateInput">Дата:</label>
+                <input type="date" id="workoutDateInput" required>
+            </div>
+            <button id="confirmDateSelectionBtn" class="btn btn-primary">Підтвердити</button>
+            <p id="dateSelectionMessage" class="message"></p>
+        </div>
+    </div>
+
+    <div id="editWorkoutTemplateModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Редагувати шаблон тренування</h3>
+            <form id="editWorkoutTemplateForm">
+                <input type="hidden" id="editTemplateId">
+                <div class="form-group">
+                    <label for="editTemplateName">Назва шаблону:</label>
+                    <input type="text" id="editTemplateName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editTemplateDescription">Опис:</label>
+                    <textarea id="editTemplateDescription"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="editTemplateMuscleGroups">М'язові групи (через кому):</label>
+                    <input type="text" id="editTemplateMuscleGroups" placeholder="Наприклад, Ноги, Сідниці, Прес">
+                </div>
+                <div class="form-group">
+                    <label for="editTemplateGoal">Ціль тренування:</label>
+                    <select id="editTemplateGoal">
+                        <option value="">Оберіть ціль</option>
+                        <option value="Набір маси">Набір маси</option>
+                        <option value="Сушка">Сушка</option>
+                        <option value="Витривалість">Витривалість</option>
+                        <option value="Сила">Сила</option>
+                        <option value="Загальний тонус">Загальний тонус</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editTemplateDifficulty">Рівень складності:</label>
+                    <select id="editTemplateDifficulty">
+                        <option value="">Оберіть рівень</option>
+                        <option value="Початківець">Початківець</option>
+                        <option value="Середній">Середній</option>
+                        <option value="Просунутий">Просунутий</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Необхідне обладнання:</label>
+                    <div id="editTemplateEquipment" class="checkbox-group">
+                        <label><input type="checkbox" value="Без обладнання"> Без обладнання</label>
+                        <label><input type="checkbox" value="Гантелі"> Гантелі</label>
+                        <label><input type="checkbox" value="Штанга"> Штанга</label>
+                        <label><input type="checkbox" value="Тренажери"> Тренажери</label>
+                        <label><input type="checkbox" value="Еспандер"> Еспандер</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="editTemplateDuration">Тривалість:</label>
+                    <select id="editTemplateDuration">
+                        <option value="">Оберіть тривалість</option>
+                        <option value="До 30 хв">До 30 хв</option>
+                        <option value="30-60 хв">30-60 хв</option>
+                        <option value="Понад 60 хв">Понад 60 хв</option>
+                    </select>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label for="editIsGlobalTemplate">
+                        <input type="checkbox" id="editIsGlobalTemplate"> Зробити глобальним (доступно всім)
+                    </label>
+                </div>
+                <div id="editExercisesContainer">
+                    </div>
+                <button type="button" id="addEditExerciseBtn" class="btn btn-secondary">Додати вправу</button>
+                <button type="submit" class="btn btn-save">Зберегти зміни</button>
+                <p id="editWorkoutTemplateMessage" class="message"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="workoutDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 id="workoutDetailsTitle"></h3>
+            <p><strong>Опис:</strong> <span id="workoutDetailsDescription"></span></p>
+            <p><strong>М'язові групи:</strong> <span id="workoutDetailsMuscleGroups"></span></p>
+            <p><strong>Ціль:</strong> <span id="workoutDetailsGoal"></span></p>
+            <p><strong>Складність:</strong> <span id="workoutDetailsDifficulty"></span></p>
+            <p><strong>Обладнання:</strong> <span id="workoutDetailsEquipment"></span></p>
+            <p><strong>Тривалість:</strong> <span id="workoutDetailsDuration"></span></p>
+            <h4>Вправи:</h4>
+            <ul id="workoutDetailsExercises">
+                </ul>
+        </div>
+    </div>
+
+    <div id="startWorkoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeStartWorkoutModal">&times;</span>
+            <h3 id="startWorkoutTitle"></h3>
+            <p>Дата: <span id="startWorkoutDate"></span></p>
+            
+            <div class="workout-timer-section">
+                <h4>Таймер тренування:</h4>
+                <div id="workoutTimerDisplay" class="timer-display">00:00:00</div>
+                <div class="timer-controls">
+                    <button id="startTimerBtn" class="btn btn-save"><i class="fas fa-play"></i> Старт</button>
+                    <button id="pauseTimerBtn" class="btn btn-cancel"><i class="fas fa-pause"></i> Пауза</button>
+                    <button id="resetTimerBtn" class="btn btn-delete"><i class="fas fa-redo"></i> Скинути</button>
+                </div>
+            </div>
+
+            <h4 style="margin-top: 20px;">Вправи:</h4>
+            <form id="startWorkoutForm">
+                <input type="hidden" id="currentWorkoutId">
+                <div id="startWorkoutExercisesContainer">
+                    </div>
+                <button type="submit" class="btn btn-primary">Завершити тренування</button>
+                <p id="startWorkoutMessage" class="message"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="dailyWorkoutsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 id="dailyWorkoutsModalTitle">Тренування на <span id="dailyWorkoutsDate"></span></h3>
+            <div id="dailyWorkoutsListInModal">
+                </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script> <script src="auth.js"></script>
+</body>
+</html>

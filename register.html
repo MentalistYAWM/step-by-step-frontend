@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Реєстрація - Step By Step</title>
+    <link rel="stylesheet" href="dashboard.css"> <!-- Використовуємо той самий CSS для загального стилю -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Додаткові стилі для центрування та фону на сторінках автентифікації */
+        html, body {
+            height: 100%; /* Забезпечуємо, що html та body займають всю висоту */
+            margin: 0;
+            padding: 0;
+            display: flex; /* Використовуємо flexbox для центрування */
+            justify-content: center; /* Центруємо по горизонталі */
+            align-items: center; /* Центруємо по вертикалі */
+            background-color: var(--background-color); /* Використовуємо змінну з dashboard.css */
+            color: var(--text-color); /* Використовуємо змінну з dashboard.css */
+            font-family: var(--font-family); /* Використовуємо змінну з dashboard.css */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Плавний перехід для темної теми */
+        }
+
+        .auth-container {
+            /* Ці стилі вже визначені в dashboard.css, але тут можна додати локальні перевизначення, якщо потрібно */
+            max-width: 400px;
+            width: 90%; /* Адаптивна ширина */
+            margin: auto; /* Центрування, якщо не використовується flex на body */
+            padding: 40px;
+            background-color: var(--card-background); /* Змінна з dashboard.css */
+            border-radius: 12px;
+            box-shadow: 0 4px 20px var(--shadow-medium); /* Змінна з dashboard.css */
+            text-align: center;
+        }
+
+        .auth-container h2 {
+            font-size: 28px;
+            color: var(--primary-color); /* Змінна з dashboard.css */
+            margin-bottom: 30px;
+        }
+
+        .auth-container .message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .auth-container .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .auth-container .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2>Реєстрація</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="regUsername">Ім'я користувача:</label>
+                    <input type="text" id="regUsername" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email:</label>
+                    <input type="email" id="regEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Пароль:</label>
+                    <input type="password" id="regPassword" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Зареєструватися</button>
+                <p id="registerMessage" class="message"></p> 
+            </form>
+            <p>Вже маєте обліковий запис? <a href="login.html">Увійти</a></p>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>
