@@ -1,5 +1,5 @@
 // config.js
-const BASE_URL = 'http://127.0.0.1:5000';
+const BASE_URL = 'http://185.233.46.243';
 const ADMIN_USER_ID_REFERENCE = 1;
 
 let currentUserId = null;
