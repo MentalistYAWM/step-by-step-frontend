@@ -64,15 +64,18 @@ async function loginUser(email, password) {
         const data = await response.json();
 
         if (response.ok) {
-            localStorage.setItem('jwt_token', data.token);
+            // ! ВАЖЛИВО: Змінили 'data.token' на 'data.access_token'
+            localStorage.setItem('jwt_token', data.access_token); // Переконайтеся, що це 'access_token'
+            console.log('DEBUG: Токен успішно збережено:', data.access_token);
+
             // ОПТИМІЗАЦІЯ ТУТ:
             // Зберігаємо ім'я користувача та роль у локальне сховище або глобальні змінні
             // щоб вони були доступні відразу після входу.
             // Припускаємо, що бекенд повертає username і role при вході
-            if (data.username) {
+            if (data.username) { // Цей блок коду спрацює, якщо бекенд також повертає username
                 localStorage.setItem('username', data.username);
             }
-            if (data.role) {
+            if (data.role) { // Цей блок коду спрацює, якщо бекенд також повертає role
                 localStorage.setItem('user_role', data.role);
             }
             // *** ЦЕ КЛЮЧОВИЙ МОМЕНТ ***
